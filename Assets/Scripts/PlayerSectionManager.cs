@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSectionManager : MonoBehaviour {
+public class PlayerSectionManager : Health {
+
+	/// <summary>
+	/// Specialized Health script that references Ship systems.
+	/// </summary>
 
 	// Use this for initialization
 	void Start () {

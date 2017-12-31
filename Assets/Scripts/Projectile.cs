@@ -8,7 +8,12 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
-	[SerializeField] float _thrust = 10.0f;
+	//[SerializeField] float _thrust = 10.0f;
+
+	/// <summary>
+	/// The muzzle velocity in X * m/s
+	/// </summary>
+	[SerializeField] float _muzzleVelocity = 50;
 	[SerializeField] Vector2 _direction = new Vector2 (-1, 0);
 	[SerializeField] int _damage = 10;
 	[SerializeField] float _timeToLive = 10; //em Segundos
@@ -38,7 +43,8 @@ public class Projectile : MonoBehaviour {
 		if (_direction.x < 1 && _sr!=null)
 			_sr.flipX = true;
 		
-		_rb.AddForce (_direction.normalized * _thrust, ForceMode2D.Impulse);
+		//_rb.AddForce (_direction.normalized * _thrust, ForceMode2D.Impulse);
+		_rb.velocity = _direction.normalized *_muzzleVelocity;
 
 		StartCoroutine (lifeCountdown ());
 	}
@@ -52,7 +58,7 @@ public class Projectile : MonoBehaviour {
 		//Entidade "danificável"
 		Health entity = col.gameObject.GetComponent<Health> ();
 		if (entity != null) {
-			entity.takeDamage (_damage);
+			entity.takeDamage ( (int) (col.relativeVelocity.magnitude * this._rb.mass));
 		}
 		Die ();
 	}

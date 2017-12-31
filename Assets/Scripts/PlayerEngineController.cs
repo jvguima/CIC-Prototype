@@ -13,7 +13,7 @@ public class PlayerEngineController : MonoBehaviour {
 	/// <summary>
 	/// The thrust of the Ship. In kN ?
 	/// </summary>
-	[SerializeField] float _thrust;
+	[SerializeField] float _thrust = 1f;
 
 
 	void Awake(){
@@ -37,11 +37,11 @@ public class PlayerEngineController : MonoBehaviour {
 		/// Vertical < 0 - Move Sternward
 		/// </summary>
 		if (Input.GetAxis ("Vertical") > 0) {
-			_rb.AddForce(transform.up,ForceMode2D.Force);
+			_rb.AddForce(transform.up * _thrust,ForceMode2D.Force);
 		}
 
 		if (Input.GetAxis ("Vertical") < 0) {
-			_rb.AddForce(-1 * transform.up,ForceMode2D.Force);
+			_rb.AddForce(-1 * transform.up * _thrust,ForceMode2D.Force);
 		}
 	}
 }
